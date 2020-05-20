@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>B/K Rating</title>
+
+    <style>
+        .stars-outer {
+            position:relative;
+            display: inline-block;
+        }
+
+        .stars-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+        }
+        .stars-outer::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #ccc;
+        }
+        .stars-inner::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #f8ce0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-group">
+            <select id="book-select" class="form-control custom-select">
+                <option value="0" disabled selected>Select Book</option>
+                <option value="book1"> The Art of War</option>
+                <option value="book2"> The Subtle Act of not giving a Fuck</option>
+                <option value="book3"> Game of Thrones</option>
+                <option value="book4"> Hunger Games</option>
+                <option value="book5"> Harry Potter</option>
+                <option value="book6"> Fifty Shades of Grey</option>
+                <option value="book7"> The Dark Tower</option>
+                <option value="book8"> The Last Dance</option>
+                <option value="book9"> Things Fall Apart</option>
+                <option value="book10"> Of Mice and Men</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="number" id="rating-control" class="form-control" step="0.1" max="5" placeholder="Rate 1 - 5" disabled>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Books</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="book1">
+                    <td>The Art of War</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book2">
+                    <td>The Subtle Act of not giving a Fuck</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book3">
+                    <td>Game of Thrones</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book4">
+                    <td>Hunger Games</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book5">
+                    <td>Harry Potter</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book6">
+                    <td>Fifty Shades of Grey</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book7">
+                    <td>The Dark Tower</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book8">
+                    <td>The Last Dance</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book9">
+                    <td>Things Fall Apart</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+                <tr class="book10">
+                    <td>Of Mice and Men</td>
+                    <td>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <span class="number-rating"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        //initial ratings
+        const ratings = {
+            book1: 4.7,
+            book2: 4.5,
+            book3: 4.4,
+            book4: 4.8,
+            book5: 3.7,
+            book6: 2.7,
+            book7: 4.6,
+            book8: 3.7,
+            book9: 5,
+            book10: 4.7
+        }
+
+        // tottal stars
+        const starsTotal = 5;
+
+        // run getRatings when DOM loads
+        document.addEventListener('DOMContentLoaded', getRatings);
+
+        // form elements
+        const bookSelect = document.getElementById
+        ('book-select'); 
+        const ratingControl= document.getElementById
+        ('rating-control'); 
+ 
+        // init book
+        let book;
+
+        // book select change
+        bookSelect.addEventListener('change', (e) => {
+            book = e.target.value;
+            
+            // enable rating control
+            ratingControl.disabled = false;
+            ratingControl.value = ratings[book];
+        });
+
+        //rating contol change 
+        ratingControl.addEventListener('blur', (e) => {
+            const rating = e.target.value;
+        
+
+            //make sure rating is 5 and below 
+            if (rating > 5) {
+                alert('please rate 1 - 5');
+                return;
+            }
+            // change rating 
+            ratings[book] = rating;
+
+            getRatings();
+        });
+
+        // get ratings
+        function getRatings() {
+           for (let rating in ratings) {
+               
+              // get pecentage
+              const starPercentage = (ratings[rating] / starsTotal) * 100;
+              
+              // round to nearest 10//
+              const starPercentageRounded = `${Math.round(starPercentage / 10) *10}%`;
+              
+              // set width of stars inner to percentage
+              document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+
+              // add number ratingControl
+              document.querySelector(`.${rating}
+              .number-rating`).innerHTML = ratings[rating];
+           }
+        }
+    </script>
+     
+</body>
+</html>
